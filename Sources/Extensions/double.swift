@@ -11,4 +11,8 @@ extension Double {
                 return self * -1
         }
     }
+
+    public var payableOrReceivableLabel: String {
+        return self >= 0 ? "Te betalen" : "Te ontvangen"
+    }
 }
