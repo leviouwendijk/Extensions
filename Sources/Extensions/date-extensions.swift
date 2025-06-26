@@ -50,7 +50,7 @@ extension Date: DateDistanceCalculable {
     }
 }
 
-public enum TimeBetweenError: Error, LocalizedError {
+public enum TimeDistanceError: Error, LocalizedError {
     case invalidUnit
     case componentUnavailable(unit: DateDistanceUnit)
     
@@ -64,40 +64,54 @@ public enum TimeBetweenError: Error, LocalizedError {
     }
 }
 
-public func timeBetween(
+public enum TimeDistanceCalculationMethod: Sendable {
+    case until // until or up to
+    case through // including the end, or 'through'
+}
+
+public func timeDistance(
     from start: Date,
     to end: Date,
-    in unit: DateDistanceUnit
+    in unit: DateDistanceUnit,
+    calculating method: TimeDistanceCalculationMethod = .until
 ) throws -> Int {
     let calendar = Calendar.current
     
     func singleComponent(_ comp: Calendar.Component, for unit: DateDistanceUnit) throws -> Int {
         let components = calendar.dateComponents([comp], from: start, to: end)
         guard let value = components.value(for: comp) else {
-            throw TimeBetweenError.componentUnavailable(unit: unit)
+            throw TimeDistanceError.componentUnavailable(unit: unit)
         }
         return value
     }
     
+    let raw: Int
     switch unit {
     case .days:
-        return try singleComponent(.day,    for: .days)
+        raw = try singleComponent(.day,    for: .days)
     case .months:
-        return try singleComponent(.month,  for: .months)
+        raw = try singleComponent(.month,  for: .months)
     case .years:
-        return try singleComponent(.year,   for: .years)
+        raw = try singleComponent(.year,   for: .years)
     case .hours:
-        return try singleComponent(.hour,   for: .hours)
+        raw = try singleComponent(.hour,   for: .hours)
     case .minutes:
-        return try singleComponent(.minute, for: .minutes)
+        raw = try singleComponent(.minute, for: .minutes)
     case .seconds:
-        return try singleComponent(.second, for: .seconds)
+        raw = try singleComponent(.second, for: .seconds)
         
     case .milliseconds:
         let interval = end.timeIntervalSince(start)
-        return Int(interval * 1_000)
+        raw = Int(interval * 1_000)
         
     case .combined:
-        throw TimeBetweenError.invalidUnit
+        throw TimeDistanceError.invalidUnit
+    }
+
+    switch method {
+    case .until:
+        return raw
+    case .through:
+        return raw + 1
     }
 }
