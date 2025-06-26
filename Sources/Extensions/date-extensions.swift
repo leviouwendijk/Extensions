@@ -67,6 +67,15 @@ public enum TimeDistanceError: Error, LocalizedError {
 public enum TimeDistanceCalculationMethod: Sendable {
     case until // until or up to
     case through // including the end, or 'through'
+
+    public var infix: String {
+        switch self {
+            case .until:
+            return "tot"
+            case .through:
+            return "tot en met"
+        }
+    }
 }
 
 public func timeDistance(
@@ -113,5 +122,38 @@ public func timeDistance(
         return raw
     case .through:
         return raw + 1
+    }
+}
+
+// public func timeRangeString(start: String, end: String, calculating method: TimeDistanceCalculationMethod) -> String {
+//     return "\(start) \(method.infix) \(end)"
+// }
+
+public struct TimeDistance: Sendable {
+    public let start: String
+    public let end: String
+    public let method: TimeDistanceCalculationMethod
+
+    public let startDate: Date
+    public let endDate: Date
+
+    public init(
+        start: String,
+        end: String,
+        method: TimeDistanceCalculationMethod
+    ) throws {
+        self.start = start
+        self.end = end
+        self.startDate = try start.date()
+        self.endDate = try end.date()
+        self.method = method
+    }
+
+    public var string: String {
+        return "\(start) \(method.infix) \(end)"
+    }
+
+    public func distance(in unit: DateDistanceUnit) throws -> Int {
+        return try timeDistance(from: startDate, to: endDate, in: unit, calculating: method)
     }
 }
