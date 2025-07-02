@@ -3,8 +3,15 @@ import plate
 import Structures
 
 extension Date {
-    static func today() -> Date {
+    public static func today() -> Date {
         return Date()
+    }
+
+    public func conforming(to format: String = "dd/MM/yyyy") -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale.current
+        formatter.dateFormat = format
+        return formatter.string(from: self)
     }
 }
 
