@@ -4,6 +4,20 @@ import Contacts
 import plate
 
 extension String {
+    public func convertingReplacements(
+        replacements: [StringTemplateReplacement],
+        replaceEmpties: Bool = false
+    ) -> String {
+        let converter = StringTemplateConverter(
+            text: self,
+            replacements: replacements
+        )
+
+        return converter.replace(replaceEmpties: replaceEmpties)
+    }
+}
+
+extension String {
     public func htmlClean() -> String {
         return self
             .replacingOccurrences(of: "\n", with: "")
