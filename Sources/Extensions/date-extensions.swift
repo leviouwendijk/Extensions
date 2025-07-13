@@ -74,7 +74,7 @@ public enum TimeDistanceError: Error, LocalizedError {
     }
 }
 
-public enum TimeDistanceCalculationMethod: String, RawRepresentable, Sendable {
+public enum TimeDistanceCalculationMethod: String, RawRepresentable, CaseIterable, Sendable {
     case until // until or up to
     case through // including the end, or 'through'
 
@@ -84,6 +84,12 @@ public enum TimeDistanceCalculationMethod: String, RawRepresentable, Sendable {
             return "tot"
             case .through:
             return "tot en met"
+        }
+    }
+
+    public static func printAvailable() {
+        for i in self.allCases {
+            print(i.rawValue)
         }
     }
 }
