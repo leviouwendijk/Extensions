@@ -74,6 +74,23 @@ public enum TimeDistanceError: Error, LocalizedError {
     }
 }
 
+enum TimeDistanceCalculationMethodError: Error, LocalizedError {
+    case parsingError(String)
+    
+    var errorDescription: String? {
+        switch self {
+            case .parsingError(let provided):
+                return """
+                Failed to parse the provided string into a valid TimeDistanceCalculationMethod case:
+                    "\(provided)"
+
+                    available inputs:
+                \(TimeDistanceCalculationMethod.available().indent(times: 2))
+                """
+        }
+    }
+}
+
 public enum TimeDistanceCalculationMethod: String, RawRepresentable, CaseIterable, Sendable {
     case until // until or up to
     case through // including the end, or 'through'
@@ -94,6 +111,17 @@ public enum TimeDistanceCalculationMethod: String, RawRepresentable, CaseIterabl
             output.append(newline())
         }
         return output
+    }
+
+    public static func parseFrom(string: String) throws  -> Self {
+        for i in self.allCases {
+            if i.rawValue == string {
+                return i
+            } else {
+                continue
+            }
+        }
+        throw TimeDistanceCalculationMethodError.parsingError(string)
     }
 }
 
