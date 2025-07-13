@@ -87,10 +87,12 @@ public enum TimeDistanceCalculationMethod: String, RawRepresentable, CaseIterabl
         }
     }
 
-    public static func printAvailable() {
+    public static func available() -> String {
+        var output = ""
         for i in self.allCases {
-            print(i.rawValue)
+            output.append(i.rawValue)
         }
+        return output
     }
 }
 
