@@ -7,7 +7,7 @@
       "location" : "https://github.com/leviouwendijk/plate.git",
       "state" : {
         "branch" : "master",
-        "revision" : "932f7c6f7a3280ea722e935df6b199138c9e9844"
+        "revision" : "d01afb3150fad27febf072e7e91e08139668f09c"
       }
     },
     {
@@ -16,7 +16,7 @@
       "location" : "https://github.com/leviouwendijk/Structures.git",
       "state" : {
         "branch" : "master",
-        "revision" : "96d7468435ea966e30c02df6fd6cf5c543dab959"
+        "revision" : "dcebc75c118d10c1b4108790bb3d38c9732a4852"
       }
     }
   ],

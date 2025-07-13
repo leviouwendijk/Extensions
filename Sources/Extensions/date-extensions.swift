@@ -91,6 +91,7 @@ public enum TimeDistanceCalculationMethod: String, RawRepresentable, CaseIterabl
         var output = ""
         for i in self.allCases {
             output.append(i.rawValue)
+            output.append(newline())
         }
         return output
     }
