@@ -7,7 +7,7 @@ public struct EnumParsingError: LocalizedError {
 
     public var errorDescription: String? {
         """
-        Failed to parse "\(provided)" to valid case of enum '\(enumName)'
+        Failed to parse "\(provided)" to a valid case of enum '\(enumName)'
 
             Valid options are:
         \(cases.indent())
