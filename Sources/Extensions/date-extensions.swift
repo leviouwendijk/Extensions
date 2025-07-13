@@ -74,24 +74,24 @@ public enum TimeDistanceError: Error, LocalizedError {
     }
 }
 
-enum TimeDistanceCalculationMethodError: Error, LocalizedError {
-    case parsingError(String)
+// enum TimeDistanceCalculationMethodError: Error, LocalizedError {
+//     case parsingError(String)
     
-    var errorDescription: String? {
-        switch self {
-            case .parsingError(let provided):
-                return """
-                Failed to parse the provided string into a valid TimeDistanceCalculationMethod case:
-                    "\(provided)"
+//     var errorDescription: String? {
+//         switch self {
+//             case .parsingError(let provided):
+//                 return """
+//                 Failed to parse the provided string into a valid TimeDistanceCalculationMethod case:
+//                     "\(provided)"
 
-                    available inputs:
-                \(TimeDistanceCalculationMethod.available().indent(times: 2))
-                """
-        }
-    }
-}
+//                     available inputs:
+//                 \(TimeDistanceCalculationMethod.available().indent(times: 2))
+//                 """
+//         }
+//     }
+// }
 
-public enum TimeDistanceCalculationMethod: String, RawRepresentable, CaseIterable, Sendable {
+public enum TimeDistanceCalculationMethod: String, RawRepresentable, CaseIterable, Sendable, StringParsableEnum {
     case until // until or up to
     case through // including the end, or 'through'
 
@@ -104,25 +104,25 @@ public enum TimeDistanceCalculationMethod: String, RawRepresentable, CaseIterabl
         }
     }
 
-    public static func available() -> String {
-        var output = ""
-        for i in self.allCases {
-            output.append(i.rawValue)
-            output.append(newline())
-        }
-        return output
-    }
+    // public static func available() -> String {
+    //     var output = ""
+    //     for i in self.allCases {
+    //         output.append(i.rawValue)
+    //         output.append(newline())
+    //     }
+    //     return output
+    // }
 
-    public static func parseFrom(string: String) throws  -> Self {
-        for i in self.allCases {
-            if i.rawValue == string {
-                return i
-            } else {
-                continue
-            }
-        }
-        throw TimeDistanceCalculationMethodError.parsingError(string)
-    }
+    // public static func parseFrom(string: String) throws  -> Self {
+    //     for i in self.allCases {
+    //         if i.rawValue == string {
+    //             return i
+    //         } else {
+    //             continue
+    //         }
+    //     }
+    //     throw TimeDistanceCalculationMethodError.parsingError(string)
+    // }
 }
 
 public func timeDistance(
