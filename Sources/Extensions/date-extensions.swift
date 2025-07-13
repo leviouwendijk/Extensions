@@ -74,7 +74,7 @@ public enum TimeDistanceError: Error, LocalizedError {
     }
 }
 
-public enum TimeDistanceCalculationMethod: Sendable {
+public enum TimeDistanceCalculationMethod: String, RawRepresentable, Sendable {
     case until // until or up to
     case through // including the end, or 'through'
 
