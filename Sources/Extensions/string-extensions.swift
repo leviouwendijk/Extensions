@@ -14,4 +14,12 @@ extension String {
         return self
         .components(separatedBy: .newlines)
     }
+
+    public func collapsingDoubleSpaces() -> String {
+        return self.replacingOccurrences(
+            of: " {2,}",
+            with: " ",
+            options: .regularExpression
+        )
+    }
 }
