@@ -182,4 +182,48 @@ extension String {
         }
         return false
     }
+
+    public func extractingRawTemplatePlaceholderSyntaxes(
+        ignoring exceptions: [String] = [],
+        placeholderSyntaxes syntaxes: [PlaceholderSyntax] = [
+            .init(prepending: "{", appending: "}", repeating: 2), // `{{ … }}`
+            .init(prepending: "{", appending: "}"),               // `{ … }`
+            .init(prepending: "${", appending: "}"),              // `${ … }`
+        ]
+    ) -> [String] {
+        let ignoreSet = Set(exceptions)
+        var rawPlaceholders: [String] = []
+        
+        for syntax in syntaxes {
+            let openDelim  = syntax.prefix
+            let closeDelim = syntax.suffix
+            
+            var scanStart = startIndex
+            while true {
+                guard let openRange = self.range(of: openDelim, range: scanStart..<endIndex) else {
+                    break
+                }
+                
+                let afterOpen = openRange.upperBound
+                guard let closeRange = self.range(of: closeDelim, range: afterOpen..<endIndex) else {
+                    break
+                }
+                
+                let innerRange = afterOpen..<closeRange.lowerBound
+                let rawContent = self[innerRange].trimmingCharacters(in: .whitespacesAndNewlines)
+                
+                let firstToken = rawContent
+                    .split(whereSeparator: { $0.isWhitespace })
+                    .first
+                    .map(String.init) ?? ""
+                
+                if !ignoreSet.contains(firstToken) {
+                    rawPlaceholders.append(firstToken)
+                }
+
+                scanStart = closeRange.upperBound
+            }
+        }
+        return rawPlaceholders
+    }
 }
