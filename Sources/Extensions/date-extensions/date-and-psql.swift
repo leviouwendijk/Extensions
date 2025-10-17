@@ -27,7 +27,7 @@ private func _makeInFormatter(_ format: String) -> DateFormatter {
 
 public extension Date {
     /// Format as Postgres-friendly RFC3339 (with ms + timezone)
-    var postgresTimestamp: String { _pgOut.string(from: self) }
+    var asPostgresTimestamp: String { _pgOut.string(from: self) }
 
     /// Parse various Postgres/ISO-ish inputs.
     static func fromPostgresTimestamp(_ s: String) -> Date? {
