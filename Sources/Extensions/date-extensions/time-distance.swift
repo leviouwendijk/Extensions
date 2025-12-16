@@ -2,6 +2,7 @@ import Foundation
 import plate
 import Structures
 
+@available(*, message: "Moved to plate")
 public enum TimeDistanceError: Error, LocalizedError {
     case invalidUnit
     case componentUnavailable(unit: DateDistanceUnit)
@@ -16,6 +17,7 @@ public enum TimeDistanceError: Error, LocalizedError {
     }
 }
 
+@available(*, message: "Moved to plate")
 public enum TimeDistanceCalculationMethod: String, RawRepresentable, CaseIterable, Sendable, StringParsableEnum {
     case until // until or up to
     case through // including the end, or 'through'
@@ -30,6 +32,7 @@ public enum TimeDistanceCalculationMethod: String, RawRepresentable, CaseIterabl
     }
 }
 
+@available(*, message: "Moved to plate")
 public func timeDistance(
     from start: Date,
     to end: Date,
@@ -86,6 +89,7 @@ public func timeDistance(
     }
 }
 
+@available(*, message: "Moved to plate")
 public struct TimeDistance: Sendable {
     public let start: String
     public let end: String

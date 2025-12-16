@@ -1,5 +1,6 @@
 import Foundation
 
+@available(*, message: "Moved to plate")
 public struct EnumParsingError: LocalizedError {
     public let enumName: String
     public let provided: String
@@ -15,8 +16,10 @@ public struct EnumParsingError: LocalizedError {
     }
 }
 
+@available(*, message: "Moved to plate")
 public protocol StringParsableEnum: RawRepresentable, CaseIterable where RawValue == String {}
 
+@available(*, message: "Moved to plate")
 public extension StringParsableEnum {
     static func available() -> String {
         allCases.map { $0.rawValue }.joined(separator: "\n")
