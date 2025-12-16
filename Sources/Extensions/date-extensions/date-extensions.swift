@@ -2,6 +2,7 @@ import Foundation
 import plate
 import Structures
 
+@available(*, message: "moved to plate")
 extension Date {
     public static func today() -> Date {
         return Date()
@@ -15,10 +16,12 @@ extension Date {
     }
 }
 
+@available(*, message: "moved to plate")
 protocol DateDistanceCalculable {
     func distance(to date: Date, in units: DateDistanceUnit) -> DateComponents
 }
 
+@available(*, message: "moved to plate")
 extension Date: DateDistanceCalculable {
     public func distance(to date: Date, in unit: DateDistanceUnit) -> DateComponents {
         let calendar = Calendar.current
