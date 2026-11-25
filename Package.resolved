@@ -13,7 +13,7 @@
     {
       "identity" : "structures",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/leviouwendijk/Structures.git",
+      "location" : "https://github.com/swift-lco/Structures.git",
       "state" : {
         "branch" : "master",
         "revision" : "dbb05be552675828613b42b87021cfc4177d8ea1"
